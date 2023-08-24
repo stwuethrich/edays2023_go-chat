@@ -10,10 +10,29 @@ func main() {
 	connection, err := net.Dial("tcp", "localhost:8000")
 	if err != nil {
 		panic(err)
+	} else {
+		defer connection.Close()
 	}
 	///send some data
 	fmt.Printf("Send to server\n")
-	_, err = connection.Write([]byte("ECHO Hello Server! Greetings.\n"))
+	sendEcho(connection)
+	login(connection)
+}
+
+func login(connection net.Conn) {
+	sendString(connection, "LOGIN goly")
+	printAnswer(connection)
+}
+
+func sendEcho(connection net.Conn) {
+	_, err := sendString(connection, "ECHO hello!")
+	if err != nil {
+		fmt.Println("Error writing:", err.Error())
+	}
+	printAnswer(connection)
+}
+
+func printAnswer(connection net.Conn) {
 	buffer := make([]byte, 1024)
 	fmt.Printf("Read from server\n")
 	mLen, err := connection.Read(buffer)
@@ -21,5 +40,8 @@ func main() {
 		fmt.Println("Error reading:", err.Error())
 	}
 	fmt.Println("Received: ", string(buffer[:mLen]))
-	defer connection.Close()
+}
+
+func sendString(connection net.Conn, message string) (int, error) {
+	return connection.Write([]byte(message))
 }

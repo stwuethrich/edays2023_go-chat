@@ -24,7 +24,7 @@ func main() {
 		command = command[:len(command)-1]
 		message = message[:len(message)-1]
 
-		fmt.Println("received command #{command}")
+		fmt.Printf("received command %s\n", command)
 		switch command {
 		case "ECHO":
 			go commands.Echo(message, conn)

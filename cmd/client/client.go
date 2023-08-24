@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
 )
@@ -13,6 +14,7 @@ func main() {
 	} else {
 		defer connection.Close()
 	}
+
 	///send some data
 	fmt.Printf("Send to server\n")
 	sendEcho(connection)
@@ -33,15 +35,16 @@ func sendEcho(connection net.Conn) {
 }
 
 func printAnswer(connection net.Conn) {
-	buffer := make([]byte, 1024)
-	fmt.Printf("Read from server\n")
-	mLen, err := connection.Read(buffer)
+	reader := bufio.NewReader(connection)
+	message, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println("Error reading:", err.Error())
 	}
-	fmt.Println("Received: ", string(buffer[:mLen]))
+	fmt.Println("Received: ", message)
 }
 
 func sendString(connection net.Conn, message string) (int, error) {
+	message += "\n"
+	fmt.Printf("sendString %s", message)
 	return connection.Write([]byte(message))
 }

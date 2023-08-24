@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	fmt.Printf("Start server\n")
 	// listen on port 8000
 	ln, _ := net.Listen("tcp", ":8000")
 

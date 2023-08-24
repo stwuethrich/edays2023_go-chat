@@ -21,6 +21,9 @@ func main() {
 		go func(id int, conn2 net.Conn) {
 			defer conn2.Close()
 			var err error
+			ch := make(chan string)
+			s := commands.Sender{conn2, ch}
+			go s.Send()
 			for err == nil {
 				reader := bufio.NewReader(conn2)
 				var command string
@@ -41,15 +44,15 @@ func main() {
 				protocol.Log(id, "received command %s\n", command)
 				switch command {
 				case "ECHO":
-					err = commands.Echo(id, message, conn2)
+					err = commands.Echo(id, message, s)
 				case "LOGIN":
-					err = commands.Login(id, message, conn2)
+					err = commands.Login(id, message, s)
 				case "LOGOUT":
-					err = commands.Logout(id, message, conn2)
+					err = commands.Logout(id, message, s)
 				case "LIST":
-					err = commands.List(id, message, conn2)
+					err = commands.List(id, message, s)
 				case "CHAT":
-					err = commands.Chat(id, message, conn2)
+					commands.Chat(id, message)
 				default:
 					protocol.Log(id, "unknown command #{command}")
 				}

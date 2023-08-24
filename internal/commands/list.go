@@ -2,10 +2,9 @@ package commands
 
 import (
 	"github.com/stwuethrich/edays2023_go-chat/internal/protocol"
-	"net"
 )
 
-func List(id int, message string, conn net.Conn) (err error) {
+func List(id int, message string, s Sender) (err error) {
 	protocol.Log(id, "USERS")
 	var result string
 	switch message {
@@ -14,6 +13,6 @@ func List(id int, message string, conn net.Conn) (err error) {
 			result += key + ","
 		}
 	}
-	_, err = protocol.SendString(id, conn, result[:len(result)-1])
+	protocol.SendToChannel(id, s.Ch, result[:len(result)-1])
 	return err
 }

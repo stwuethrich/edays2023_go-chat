@@ -5,16 +5,16 @@ import (
 	"net"
 )
 
-type sender struct {
-	conn net.Conn
-	ch   chan string
+type Sender struct {
+	Conn net.Conn
+	Ch   chan string
 }
 
-func (s sender) send() (err error) {
+func (s Sender) Send() (err error) {
 	for err == nil {
-		message, ok := <-s.ch
+		message, ok := <-s.Ch
 		if ok {
-			_, err = s.conn.Write([]byte(message))
+			_, err = s.Conn.Write([]byte(message))
 		} else {
 			err = errors.New("chanel closed")
 		}
@@ -23,5 +23,5 @@ func (s sender) send() (err error) {
 }
 
 var (
-	users = make(map[string]sender)
+	users = make(map[string]Sender)
 )

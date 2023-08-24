@@ -46,8 +46,8 @@ func main() {
 					err = commands.Login(id, message, conn2)
 				case "LOGOUT":
 					err = commands.Logout(id, message, conn2)
-				case "USERS":
-					err = commands.ListUsers(0, conn2)
+				case "LIST":
+					err = commands.List(id, message, conn2)
 				default:
 					protocol.Log(id, "unknown command #{command}")
 				}

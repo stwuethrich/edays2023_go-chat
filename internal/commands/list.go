@@ -5,11 +5,14 @@ import (
 	"net"
 )
 
-func ListUsers(id int, conn net.Conn) (err error) {
+func List(id int, message string, conn net.Conn) (err error) {
 	protocol.Log(id, "USERS")
 	var result string
-	for key, _ := range users {
-		result += key + ","
+	switch message {
+	case "users":
+		for key, _ := range users {
+			result += key + ","
+		}
 	}
 	_, err = protocol.SendString(id, conn, result[:len(result)-1])
 	return err

@@ -22,6 +22,7 @@ func main() {
 	login(connection)
 	listUsers(connection)
 	logout(connection)
+	listUsers(connection)
 }
 
 func login(connection net.Conn) {
@@ -30,7 +31,7 @@ func login(connection net.Conn) {
 }
 
 func listUsers(connection net.Conn) {
-	protocol.SendString(0, connection, "USERS")
+	protocol.SendString(0, connection, "LIST users")
 	printAnswer(connection)
 }
 func logout(connection net.Conn) {

@@ -20,15 +20,26 @@ func main() {
 	fmt.Printf("Send to server\n")
 	sendEcho(connection)
 	login(connection)
+	listUsers(connection)
+	logout(connection)
 }
 
 func login(connection net.Conn) {
-	protocol.SendString(connection, "LOGIN goly")
+	protocol.SendString(0, connection, "LOGIN goly")
+	printAnswer(connection)
+}
+
+func listUsers(connection net.Conn) {
+	protocol.SendString(0, connection, "USERS")
+	printAnswer(connection)
+}
+func logout(connection net.Conn) {
+	protocol.SendString(0, connection, "LOGOUT goly")
 	printAnswer(connection)
 }
 
 func sendEcho(connection net.Conn) {
-	_, err := protocol.SendString(connection, "ECHO hello!")
+	_, err := protocol.SendString(0, connection, "ECHO hello!")
 	if err != nil {
 		fmt.Println("Error writing:", err.Error())
 	}

@@ -1,12 +1,11 @@
 package protocol
 
 import (
-	"fmt"
 	"net"
 )
 
-func SendString(connection net.Conn, message string) (int, error) {
+func SendString(id int, connection net.Conn, message string) (int, error) {
+	Log(id, "sendString %s", message)
 	message += "\n"
-	fmt.Printf("sendString %s", message)
 	return connection.Write([]byte(message))
 }

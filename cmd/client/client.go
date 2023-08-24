@@ -13,7 +13,7 @@ func main() {
 	}
 	///send some data
 	fmt.Printf("Send to server\n")
-	_, err = connection.Write([]byte("Hello Server! Greetings."))
+	_, err = connection.Write([]byte("ECHO Hello Server! Greetings.\n"))
 	buffer := make([]byte, 1024)
 	fmt.Printf("Read from server\n")
 	mLen, err := connection.Read(buffer)
@@ -22,5 +22,4 @@ func main() {
 	}
 	fmt.Println("Received: ", string(buffer[:mLen]))
 	defer connection.Close()
-
 }

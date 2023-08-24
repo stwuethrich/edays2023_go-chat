@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/stwuethrich/edays2023_go-chat/internal/commands"
 	"net"
 )
 
@@ -14,10 +15,12 @@ func main() {
 	// accept connection
 	conn, _ := ln.Accept()
 
-	message, _ := bufio.NewReader(conn).ReadString('\n')
+	reader := bufio.NewReader(conn)
+	command, _ := reader.ReadString(' ')
+	message, _ := reader.ReadString('\n')
 
-	println("Hello Server!")
+	command = command[:len(command)-1]
+	message = message[:len(message)-1]
 
-	fmt.Printf("% X\n", message)
-	conn.Write([]byte(message))
+	commands.EchoCommand(command, message, conn)
 }

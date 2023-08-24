@@ -34,9 +34,9 @@ func main() {
 					return
 				}
 
-				protocol.Log(id, "%s - %s", command, message)
 				command = command[:len(command)-1]
 				message = message[:len(message)-1]
+				protocol.Log(id, "%s - %s", command, message)
 
 				protocol.Log(id, "received command %s\n", command)
 				switch command {

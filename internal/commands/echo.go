@@ -6,8 +6,8 @@ import (
 )
 
 func Echo(id int, message string, conn net.Conn) (err error) {
-	protocol.Log(id, "ECHO: '%s'\n", message)
+	protocol.Log(id, "send '%s'", message)
 	defer protocol.Log(id, "echo done")
-	_, err = protocol.SendString(0, conn, message)
+	_, err = protocol.SendString(id, conn, message)
 	return err
 }

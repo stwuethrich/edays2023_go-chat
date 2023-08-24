@@ -18,7 +18,7 @@ func main() {
 		// accept connection
 		conn, _ := ln.Accept()
 		protocol.Log(id, "connection accepted")
-		go func(conn2 net.Conn) {
+		go func(id int, conn2 net.Conn) {
 			defer conn2.Close()
 			var err error
 			for err == nil {
@@ -34,7 +34,7 @@ func main() {
 					return
 				}
 
-				protocol.Log(id, "%s - %s\n", command, message)
+				protocol.Log(id, "%s - %s", command, message)
 				command = command[:len(command)-1]
 				message = message[:len(message)-1]
 
@@ -52,7 +52,7 @@ func main() {
 					protocol.Log(id, "unknown command #{command}")
 				}
 			}
-		}(conn)
+		}(id, conn)
 
 	}
 }

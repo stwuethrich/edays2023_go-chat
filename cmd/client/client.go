@@ -18,7 +18,7 @@ func main() {
 
 	///send some data
 	fmt.Printf("Send to server\n")
-	sendEcho(connection)
+	echo(connection)
 	login(connection)
 	listUsers(connection)
 	logout(connection)
@@ -38,7 +38,7 @@ func logout(connection net.Conn) {
 	printAnswer(connection)
 }
 
-func sendEcho(connection net.Conn) {
+func echo(connection net.Conn) {
 	_, err := protocol.SendString(0, connection, "ECHO hello!")
 	if err != nil {
 		fmt.Println("Error writing:", err.Error())

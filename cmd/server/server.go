@@ -54,7 +54,7 @@ func main() {
 				case "CHAT":
 					commands.Chat(id, message)
 				case "GROUP":
-					err = commands.Group(id, message, conn2)
+					err = commands.Group(id, message, s)
 				default:
 					protocol.Log(id, "unknown command #{command}")
 				}

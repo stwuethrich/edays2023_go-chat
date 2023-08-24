@@ -21,8 +21,13 @@ func main() {
 	echo(connection)
 	login(connection)
 	listUsers(connection)
+	chat(connection)
 	logout(connection)
 	listUsers(connection)
+}
+
+func chat(connection net.Conn) {
+	protocol.SendString(0, connection, "CHAT Hello Chatters!")
 }
 
 func login(connection net.Conn) {

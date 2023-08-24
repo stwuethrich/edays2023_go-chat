@@ -48,6 +48,8 @@ func main() {
 					err = commands.Logout(id, message, conn2)
 				case "LIST":
 					err = commands.List(id, message, conn2)
+				case "CHAT":
+					err = commands.Chat(id, message, conn2)
 				default:
 					protocol.Log(id, "unknown command #{command}")
 				}

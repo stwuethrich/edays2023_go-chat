@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="client" type="GoApplicationRunConfiguration" factoryName="Go Application" singleton="false">
+    <module name="edays2023_go-chat" />
+    <working_directory value="$PROJECT_DIR$" />
+    <kind value="PACKAGE" />
+    <package value="github.com/stwuethrich/edays2023_go-chat/cmd/client" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/client/client.go" />
+    <method v="2" />
+  </configuration>
+</component>

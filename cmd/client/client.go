@@ -24,6 +24,9 @@ func main() {
 	chat(connection)
 	logout(connection)
 	listUsers(connection)
+	createGroup(connection)
+	listGroups(connection)
+	removeGroup(connection)
 }
 
 func chat(connection net.Conn) {
@@ -42,6 +45,21 @@ func listUsers(connection net.Conn) {
 func logout(connection net.Conn) {
 	protocol.SendString(0, connection, "LOGOUT goly")
 	printAnswer(connection)
+}
+
+func createGroup(connection net.Conn) {
+	protocol.SendString(0, connection, "GROUP create Noser")
+	printAnswer(connection)
+}
+
+func listGroups(conn net.Conn) {
+	protocol.SendString(0, conn, "LIST groups")
+	printAnswer(conn)
+}
+
+func removeGroup(conn net.Conn) {
+	protocol.SendString(0, conn, "GROUP remove Noser")
+	printAnswer(conn)
 }
 
 func echo(connection net.Conn) {

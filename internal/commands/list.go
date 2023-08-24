@@ -9,10 +9,21 @@ func List(id int, message string, s Sender) (err error) {
 	var result string
 	switch message {
 	case "users":
-		for key, _ := range users {
-			result += key + ","
-		}
+		result = getKeys(users)
+	case "groups":
+		result = getKeys(groups)
 	}
-	protocol.SendToChannel(id, s.Ch, result[:len(result)-1])
+	protocol.SendToChannel(id, s.Ch, result)
 	return err
+}
+
+func getKeys[T interface{}](m map[string]T) (result string) {
+	for key, _ := range m {
+		result += key + ","
+	}
+	l := len(result)
+	if l > 0 {
+		result = result[:l-1]
+	}
+	return
 }

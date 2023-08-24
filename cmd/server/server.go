@@ -53,6 +53,8 @@ func main() {
 					err = commands.List(id, message, s)
 				case "CHAT":
 					commands.Chat(id, message)
+				case "GROUP":
+					err = commands.Group(id, message, conn2)
 				default:
 					protocol.Log(id, "unknown command #{command}")
 				}

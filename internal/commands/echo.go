@@ -2,10 +2,12 @@ package commands
 
 import (
 	"fmt"
+	"github.com/stwuethrich/edays2023_go-chat/internal/protocol"
 	"net"
 )
 
 func Echo(message string, conn net.Conn) {
 	fmt.Printf("ECHO: '%s'\n", message)
-	conn.Write([]byte(message))
+	defer fmt.Println("echo done")
+	protocol.SendString(conn, message)
 }

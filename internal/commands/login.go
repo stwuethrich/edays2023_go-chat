@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/stwuethrich/edays2023_go-chat/internal/protocol"
 	"net"
 )
 
@@ -12,5 +13,6 @@ var (
 func Login(userName string, conn net.Conn) {
 	fmt.Printf("LOGIN: '%s'\n", userName)
 	users[userName] = "#{userName} logged in"
-	conn.Write([]byte("login successful"))
+	defer fmt.Println("login done")
+	protocol.SendString(conn, "login successful")
 }
